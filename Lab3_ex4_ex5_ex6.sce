@@ -1,0 +1,118 @@
+// EXERCISE 4: FUNCTION ADD
+function [yn, yorigin] = add(x1n, x1origin, x2n, x2origin)
+n1 = (1:length(x1n)) - x1origin;
+n2 = (1:length(x2n)) - x2origin;
+n_min = min([n1, n2]);
+n_max = max([n1, n2]);
+n = n_min:n_max;
+y1 = zeros(1, length(n));
+y2 = zeros(1, length(n));
+y1(find((n >= min(n1)) & (n <= max(n1)))) = x1n;
+y2(find((n >= min(n2)) & (n <= max(n2)))) = x2n;
+yn = y1 + y2;
+yorigin = find(n == 0);
+figure();
+subplot(3, 1, 1);
+plot2d3(n1, x1n);
+plot(n1, x1n, 'r.');
+title('Tin hieu x1(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+subplot(3, 1, 2);
+plot2d3(n2, x2n);
+plot(n2, x2n, 'r.');
+title('Tin hieu x2(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+subplot(3, 1, 3);
+plot2d3(n, yn);
+plot(n, yn, 'r.');
+title('Tin hieu y(n) = x1(n) + x2(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+endfunction
+// EXERCISE 5: FUNCTION MULTI
+function [yn, yorigin] = multi(x1n, x1origin, x2n, x2origin)
+n1 = (1:length(x1n)) - x1origin;
+n2 = (1:length(x2n)) - x2origin;
+n_min = min([n1, n2]);
+n_max = max([n1, n2]);
+n = n_min:n_max;
+y1 = zeros(1, length(n));
+y2 = zeros(1, length(n));
+y1(find((n >= min(n1)) & (n <= max(n1)))) = x1n;
+y2(find((n >= min(n2)) & (n <= max(n2)))) = x2n;
+yn = y1 .* y2;
+yorigin = find(n == 0);
+figure();
+subplot(3, 1, 1);
+plot2d3(n1, x1n);
+plot(n1, x1n, 'r.');
+title('Tin hieu x1(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+subplot(3, 1, 2);
+plot2d3(n2, x2n);
+plot(n2, x2n, 'r.');
+title('Tin hieu x2(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+subplot(3, 1, 3);
+plot2d3(n, yn);
+plot(n, yn, 'r.');
+title('Tin hieu y(n) = x1(n) . x2(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+endfunction
+// EXERCISE 6: FUNCTION CONVOLUTION
+function [yn, yorigin] = convolution(xn, xorigin, hn, horigin)
+yn = convol(xn, hn);
+yorigin = xorigin + horigin - 1;
+nx = (1:length(xn)) - xorigin;
+nh = (1:length(hn)) - horigin;
+ny = (1:length(yn)) - yorigin;
+figure();
+subplot(3, 1, 1);
+plot2d3(nx, xn);
+plot(nx, xn, 'r.');
+title('Tin hieu x(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+subplot(3, 1, 2);
+plot2d3(nh, hn);
+plot(nh, hn, 'r.');
+title('Dap ung xung h(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+subplot(3, 1, 3);
+plot2d3(ny, yn);
+plot(ny, yn, 'r.');
+title('Ket qua tich chap y(n) = x(n) * h(n)');
+xlabel('n'); ylabel('Bien do');
+xgrid();
+endfunction
+// CHAY VI DU MINH HOA CHO TUNG BAI (TEST EXAMPLES)
+disp("=================================================");
+disp("VI DU MINH HOA EXERCISE 4: CONG HAI TIN HIEU");
+disp("=================================================");
+[y_add, yorigin_add] = add([0, 1, 3, -2], 1, [1, 1, 2, 3], 2);
+disp("yn = ");
+disp(y_add);
+disp("yorigin = ");
+disp(yorigin_add);
+disp("=================================================");
+disp("VI DU MINH HOA EXERCISE 5: NHAN HAI TIN HIEU");
+disp("=================================================");
+[y_multi, yorigin_multi] = multi([0, 1, 3, -2], 1, [1, 1, 2, 3], 2);
+disp("yn = ");
+disp(y_multi);
+disp("yorigin = ");
+disp(yorigin_multi);
+disp("=================================================");
+disp("VI DU MINH HOA EXERCISE 6: TICH CHAP HAI TIN HIEU");
+disp("=================================================");
+[y_conv, yorigin_conv] = convolution([1, 2, 3], 2, [1, 1, 1], 2);
+disp("yn = ");
+disp(y_conv);
+disp("yorigin = ");
+disp(yorigin_conv);
